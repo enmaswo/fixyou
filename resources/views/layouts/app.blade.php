@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Landing Page')</title>
-    @vite(['resources/css/nav.css', 'resources/js/app.js'])
+    @vite(['resources/css/nav.css'])
+    @vite(['resources/js/app.js'])
 </head>
 <body>
     <!-- Navbar -->
@@ -37,20 +38,6 @@
             <a href="#" class="mobile-link">Unisex</a>
         </div>
     </nav>
-    <script>
-        // Scroll Effect
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            nav.classList.toggle('scrolled', window.scrollY > 20);
-        });
-
-        // Mobile Menu Toggle
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('active');
-            document.body.classList.toggle('menu-open');
-        });
-    </script>
 </body>
 </html>
 @yield('content')

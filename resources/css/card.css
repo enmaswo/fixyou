@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@keyframes popup {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.animate-popup {
+    animation: popup 0.2s ease-out;
+}

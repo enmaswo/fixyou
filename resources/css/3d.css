@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 .container {
     padding: 4rem 0;
     background: #f8f8f8;
@@ -29,24 +30,23 @@
 
 .image-track {
     display: flex;
-    gap: 4rem; /* Jarak antar gambar diperbesar */
-    padding: 0 calc(50vw - 600px); /* Pusatkan dengan padding */
+    gap: 4rem;
+    padding: 0 calc(50vw - 600px);
     animation: scroll 40s linear infinite;
 }
 
 .image-wrapper {
     position: relative;
-    width: 600px; /* Ukuran diperbesar */
+    width: 600px;
     aspect-ratio: 4/3;
     overflow: hidden;
     border-radius: 15px;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     flex-shrink: 0;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 15px 30px rgb(255, 255, 255);
 }
 
-/* Efek tilt */
 .image-wrapper[data-tilt="left"] { transform: rotate(-4deg); }
 .image-wrapper[data-tilt="right"] { transform: rotate(4deg); }
 
@@ -56,33 +56,51 @@
     object-fit: cover;
 }
 
-/* Animasi scroll yang lebih smooth */
 @keyframes scroll {
     0% { transform: translateX(0); }
     100% { transform: translateX(calc(-100% - 4rem)); }
 }
 
-/* Efek kilat saat diklik */
-.image-wrapper:active::after {
-    animation: shine 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+/* Efek Cahaya Sekilas */
+.image-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.25);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
 }
 
-@keyframes shine {
-    0% { transform: translateY(100%) skewX(-20deg); opacity: 0; }
-    50% { opacity: 1; }
-    100% { transform: translateY(-100%) skewX(-20deg); opacity: 0; }
+.image-wrapper:active::after,
+.image-wrapper:hover::after {
+    animation: instantFlash 0.3s ease-out forwards;
+}
+
+@keyframes instantFlash {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* Efek Interaksi */
+.image-wrapper:hover,
+.image-wrapper:active {
+    transform: rotate(0deg) scale(1.02) !important;
+    transition: all 0.2s ease-out;
 }
 
 @media (max-width: 1200px) {
     .image-wrapper {
         width: 500px;
     }
-    
     .image-track {
         gap: 3rem;
         padding: 0 2rem;
     }
-    
     .title {
         font-size: 2.5rem;
     }
@@ -93,17 +111,24 @@
         width: 80vw;
         border-radius: 10px;
     }
-    
     .image-track {
         gap: 2rem;
     }
-    
     .title {
         font-size: 2rem;
         padding: 0 1rem;
     }
-    
     @keyframes scroll {
         100% { transform: translateX(calc(-100% - 2rem)); }
+    }
+}
+
+/* Pemisahan efek untuk touch device */
+@media (hover: none) {
+    .image-wrapper:hover::after {
+        animation: none;
+    }
+    .image-wrapper:hover {
+        transform: none !important;
     }
 }
