@@ -14,7 +14,7 @@ export default defineConfig({
                 'resources/css/styles.css',
                 'resources/js/app.js',
                 'resources/css/nav.css',
-                'resources/css/3d.css'
+                'resources/css/3d.css',
                 'resources/css/card.css'
             ],
             refresh: true,
